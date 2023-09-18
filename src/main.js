@@ -8,9 +8,20 @@ import NoWhere from "@/components/NoWhere.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '*', component: NoWhere },
-  { path: '/', component: LoginPage },
-  { path: '/todos', component: ToDos },
+  {
+    path: '*',
+    component: NoWhere
+  },
+  {
+    path: '/',
+    component: LoginPage
+  },
+  {
+    path: '/todos',
+    component: ToDos,
+    name: 'todos',
+    props: route => ({userFromServer: route.params.userFromServer}),
+  },
 ];
 
 Vue.config.productionTip = false;

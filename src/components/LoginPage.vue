@@ -24,13 +24,15 @@
 
 <script>
 import axios from 'axios';
+import Swal from "sweetalert2";
+
 export default {
   name: 'LoginPage',
   data() {
     return {
-      userName : '',
+      userName: '',
       userPhoneNumber: '',
-      usersFromServer :[]
+      usersFromServer: []
     }
   },
   methods :{
@@ -46,14 +48,30 @@ export default {
     },
     submitFormRegistration(){
       axios.get('https://jsonplaceholder.typicode.com/users')
-          .then(response=>{
+          .then(response => {
             console.log(response);
             this.usersFromServer = response.data;
             console.log(this.usersFromServer);
-            const foundUser = this.usersFromServer.find(user=>{
+            const foundUser = this.usersFromServer.find(user => {
               return user.username === this.userName && user.phone === this.userPhoneNumber;
             });
             console.log(foundUser);
+            if (foundUser) {
+              this.$router.push({name: 'todos', params: {userFromServer: foundUser}});
+              Swal.fire({
+                title: 'User is found!',
+                text: 'Please wait to be redirected!',
+                icon: 'success',
+                timer: 1500
+              })
+            } else {
+              Swal.fire({
+                title: 'User not found!',
+                text: 'Please check entered data',
+                icon: 'info'
+              })
+            }
+
           })
           .catch(error => {
             console.error('Error:', error);
