@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
-import LoginPage from '@/components/LoginPage.vue'
+import LoginPage from '@/components/LoginPage.vue';
 import ToDos from "@/components/ToDos.vue";
 import NoWhere from "@/components/NoWhere.vue";
 
@@ -16,6 +16,7 @@ const routes = [
 Vue.config.productionTip = false;
 
 const router = new VueRouter({
+  mode:'history',
   routes,
 });
 
