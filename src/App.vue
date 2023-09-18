@@ -1,16 +1,21 @@
 <template>
   <div id="app">
     <LoginPage />
+    <ToDos />
   </div>
 </template>
 
 <script>
-import LoginPage from './components/LoginPage.vue'
+
+
+import LoginPage from "@/components/LoginPage.vue";
+import ToDos from "@/components/ToDos.vue";
 
 export default {
   name: 'App',
   components: {
-    LoginPage
+    LoginPage,
+    ToDos
   }
 }
 </script>

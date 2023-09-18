@@ -30,7 +30,7 @@ export default {
     return {
       userName : '',
       userPhoneNumber: '',
-      userFromServer :[]
+      usersFromServer :[]
     }
   },
   methods :{
@@ -48,7 +48,12 @@ export default {
       axios.get('https://jsonplaceholder.typicode.com/users')
           .then(response=>{
             console.log(response);
-            this.userFromServer = response.data;
+            this.usersFromServer = response.data;
+            console.log(this.usersFromServer);
+            const foundUser = this.usersFromServer.find(user=>{
+              return user.username === this.userName && user.phone === this.userPhoneNumber;
+            });
+            console.log(foundUser);
           })
           .catch(error => {
             console.error('Error:', error);
