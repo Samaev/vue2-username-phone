@@ -30,8 +30,8 @@ export default {
   name: 'LoginPage',
   data() {
     return {
-      userName: 'Antonette',
-      userPhoneNumber: '010-692-6593 x09125',
+      userName: '',
+      userPhoneNumber: '',
       usersFromServer: []
     }
   },

@@ -6,18 +6,8 @@
 
 <script>
 
-
-// import LoginPage from "@/components/LoginPage.vue";
-// import ToDos from "@/components/ToDos.vue";
-// import NoWhere from "@/components/NoWhere.vue";
-
 export default {
   name: 'App',
-  // components: {
-  //   LoginPage,
-  //   ToDos,
-  //   NoWhere
-  // }
 }
 </script>
 
