@@ -49,13 +49,10 @@ export default {
     submitFormRegistration(){
       axios.get('https://jsonplaceholder.typicode.com/users')
           .then(response => {
-            console.log(response);
             this.usersFromServer = response.data;
-            console.log(this.usersFromServer);
             const foundUser = this.usersFromServer.find(user => {
               return user.username === this.userName && user.phone === this.userPhoneNumber;
             });
-            console.log(foundUser);
             if (foundUser) {
               this.$router.push({name: 'todos', params: {userFromServer: foundUser}});
               Swal.fire({

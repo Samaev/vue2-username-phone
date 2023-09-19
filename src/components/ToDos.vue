@@ -1,7 +1,8 @@
 <template>
   <div class="todosWrapper">
-    <div><h1>ToDos Place</h1>
-      <button><a href="/">Home</a></button>
+    <div class="title-banner">
+      <h1 class="title-banner__text">ToDos Place</h1>
+      <button class="title-banner__button"><a href="/">Home</a></button>
     </div>
     <div v-if="userFromServer">
       <div class="container">
@@ -113,6 +114,9 @@ export default {
         .then(response => {
           this.todos = response.data;
         })
+        .catch(error => {
+          console.error('Error:', error);
+        });
   },
   methods: {
     initMap() {
@@ -120,24 +124,22 @@ export default {
         const markerSource = new VectorSource();
 
         const markerFeature = new Feature({
-          geometry: new Point(fromLonLat([parseFloat(this.userFromServer.address.geo.long), parseFloat(this.userFromServer.address.geo.lat)])),
+          geometry: new Point(fromLonLat([parseFloat(this.userFromServer.address.geo.lng), parseFloat(this.userFromServer.address.geo.lat)])),
         });
 
         markerFeature.setStyle(
             new Style({
               image: new Icon({
-                anchor: [0.5, 23],
+                anchor: [0.5, 1],
                 anchorXUnits: 'fraction',
                 anchorYUnits: 'pixels',
-                src: '/pin.png', // TODO:replace with default marker icon
+                src: 'https://maps.google.com/mapfiles/kml/paddle/red-blank.png',
               }),
             })
         );
 
-        // Add the marker feature to the marker source
         markerSource.addFeature(markerFeature);
 
-        // Create the map with a marker layer
         new Map({
           target: this.$refs.map,
           layers: [
@@ -145,11 +147,11 @@ export default {
               source: new OSM(),
             }),
             new VectorLayer({
-              source: markerSource, // Add the marker source to the vector layer
+              source: markerSource,
             }),
           ],
           view: new View({
-            center: fromLonLat([parseFloat(this.userFromServer.address.geo.long), parseFloat(this.userFromServer.address.geo.lat)]),
+            center: fromLonLat([parseFloat(this.userFromServer.address.geo.lng), parseFloat(this.userFromServer.address.geo.lat)]),
             zoom: 10,
           }),
         });
@@ -254,14 +256,14 @@ span {
 
 .map {
   width: 100%;
-  height: 120px; /* Adjust the height as needed */
+  height: 120px;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  max-width: 600px; /* Adjust the maximum width as needed */
-  margin: 0 auto; /* Center the table */
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 th, td {
@@ -279,7 +281,7 @@ th {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px; /* Add some spacing between the filter and the table */
+  margin-bottom: 10px;
 }
 
 /* Individual filter elements */
@@ -330,9 +332,25 @@ select, input {
   border: none;
 }
 
+.title-banner {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.title-banner__text {
+  color: #c3c3c3;
+
+}
+
+.title-banner__button a {
+  color: rgba(56, 68, 54, 0.8);
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
   table {
-    font-size: 14px; /* Reduce font size for smaller screens */
+    font-size: 14px;
   }
 }
 </style>
