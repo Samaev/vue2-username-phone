@@ -2,7 +2,7 @@
   <div class="todosWrapper">
     <div class="title-banner">
       <h1 class="title-banner__text">ToDos Place</h1>
-      <button class="title-banner__button"><a href="/">Home</a></button>
+      <button class="title-banner__button"><a href="/">Register Page</a></button>
     </div>
     <div v-if="userFromServer">
       <div class="container">
@@ -349,6 +349,10 @@ select, input {
 }
 
 @media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
   table {
     font-size: 14px;
   }

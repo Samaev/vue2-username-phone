@@ -38,20 +38,25 @@ export default {
   methods :{
     isValidSymbol(e, isNumber) {
       let char = String.fromCharCode(e.keyCode);
-      if(!isNumber){
-        if(/^[A-Za-z]+$/.test(char)) return true;
+      if (char === ' ') {
+        return true;
+      }
+      if (!isNumber) {
+        if (/^[A-Za-z]+$/.test(char)) return true;
         else e.preventDefault();
       } else {
-        if(!/^[A-Za-z]+$/.test(char)) return true;
+        if (!/^[A-Za-z]+$/.test(char)) return true;
         else e.preventDefault();
       }
     },
     submitFormRegistration(){
+      const enteredPhone = this.userPhoneNumber.replace(/\D/g, '').slice(0, 10);
       axios.get('https://jsonplaceholder.typicode.com/users')
           .then(response => {
             this.usersFromServer = response.data;
             const foundUser = this.usersFromServer.find(user => {
-              return user.username === this.userName && user.phone === this.userPhoneNumber;
+              const usersPhone = user.phone.replace(/\D/g, '').slice(0, 10);
+              return user.username.toLowerCase().replace(/[^a-zA-Z]/g, '') === this.userName.toLowerCase().replace(/[^a-zA-Z]/g, '') && usersPhone === enteredPhone;
             });
             if (foundUser) {
               this.$router.push({name: 'todos', params: {userFromServer: foundUser}});
