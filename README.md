@@ -1,11 +1,17 @@
 # vue2-username-phone
 
+DEMO
+
+https://vue2-username-phone.pages.dev/
+
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
